@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Global Map Showing CO₂ Emissions By Country",
+  "title": {
+    "text": "Global CO₂ Emissions by Country (2022)",
+    "fontSize": 16,
+    "anchor": "middle",
+    "fontWeight": "bold"
+  },
+
+
+
+  "layer": [
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "black",  
+        "strokeWidth": 0.5,
+        "fill": null 
+      }
+    },
+
+
+
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/ByroDk2407/FIT3179_DataVis2/refs/heads/main/annual-co2-emissions-per-country.csv",
+              "format": {"type": "csv"}
+            },
+            "key": "Entity",
+            "fields": ["Year", "Annual CO₂ emissions"]
+          }
+        },
+        {
+          "calculate": "datum['Annual CO₂ emissions'] ? datum['Annual CO₂ emissions'] : 0",
+          "as": "CO₂_Amount"
+        },
+        {
+          "filter": {
+            "field": "Year",
+            "equal": "2022"
+          }
+        }
+      ],
+      "mark": "geoshape",
+      "encoding": {
+        "color": {
+          "field": "CO₂_Amount",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "browns"
+          },
+          "legend": {
+            "title": "Annual CO₂ Emissions",
+            "orient": "bottom"
+          }
+        },
+        "tooltip": [
+          {"field": "properties.name", "type": "nominal", "title": "Country"},
+          {"field": "CO₂_Amount", "type": "quantitative", "title": "CO₂ Emissions (kg)"}
+        ]
+      }
+    }
+  ],
+
+
+
+  "projection": {
+    "type": "mercator"
+  },
+  "width": 600,
+  "height": 570
+}

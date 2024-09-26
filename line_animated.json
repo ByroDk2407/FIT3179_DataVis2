@@ -1,0 +1,48 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Global Temperature Change (1850-2024)",
+    "width": 800,
+    "height": 400,
+    "data": {
+      "url": "datasets/temperature-anomaly.csv"
+    },
+    "mark": {
+      "type": "line",
+      "color": "steelblue"
+    },
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "temporal",
+        "title": "Year"
+      },
+      "y": {
+        "field": "Temp Change",
+        "type": "quantitative",
+        "title": "Global Temperature Change (°C)"
+      }
+    },
+    "params": [
+      {
+        "name": "YearSlider",
+        "value": 1850,
+        "bind": {
+          "input": "range",
+          "min": 1850,
+          "max": 2024,
+          "step": 1
+        }
+      }
+    ],
+    "transform": [
+      {
+        "filter": "datum.Year <= YearSlider"
+      }
+    ],
+    "config": {
+      "view": {
+        "stroke": "transparent"
+      }
+    }
+  }
+  

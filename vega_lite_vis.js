@@ -1,5 +1,10 @@
-var vg_1 = "test.json"
+var vg_1 = "choropleth.json"
+var vg_2 = "line_animation.json"
 
-vegaEmbed("#CO2_Map", vg_1).then(function(result) {
+vegaEmbed("#Choropleth_Map", vg_1).then(function(result) {
+    
+}).catch(console.error);
+
+vegaEmbed("#animated_line", vg_2).then(function(result) {
     
 }).catch(console.error);

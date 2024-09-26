@@ -4,45 +4,46 @@
     "width": 800,
     "height": 400,
     "data": {
-      "url": "datasets/temperature-anomaly.csv"
+        "url": "https://raw.githubusercontent.com/ByroDk2407/FIT3179_DataVis2/refs/heads/main/datasets/temperature-anomaly.csv",
+        "format": {"type": "csv"}
     },
     "mark": {
-      "type": "line",
-      "color": "steelblue"
+        "type": "line",
+        "color": "steelblue"
     },
     "encoding": {
-      "x": {
-        "field": "Year",
-        "type": "temporal",
-        "title": "Year"
-      },
-      "y": {
-        "field": "Temp Change",
-        "type": "quantitative",
-        "title": "Global Temperature Change (°C)"
-      }
+        "x": {
+            "field": "Year",
+            "type": "temporal",
+            "title": "Year"
+        },
+        "y": {
+            "field": "Temp Change",
+            "type": "quantitative",
+            "title": "Global Temperature Change (°C)"
+        }
     },
     "params": [
-      {
-        "name": "YearSlider",
-        "value": 1850,
-        "bind": {
-          "input": "range",
-          "min": 1850,
-          "max": 2024,
-          "step": 1
+        {
+            "name": "YearSlider",
+            "value": 1850,
+            "bind": {
+            "input": "range",
+            "min": 1850,
+            "max": 2024,
+            "step": 1
+            }
         }
-      }
     ],
     "transform": [
-      {
-        "filter": "datum.Year <= YearSlider"
-      }
+        {
+            "filter": "datum.Year <= YearSlider"
+        }
     ],
     "config": {
-      "view": {
-        "stroke": "transparent"
-      }
+        "view": {
+            "stroke": "transparent"
+        }
     }
-  }
+}
   

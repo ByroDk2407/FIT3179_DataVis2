@@ -36,7 +36,7 @@
           "lookup": "properties.name",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/ByroDk2407/FIT3179_DataVis2/refs/heads/main/annual-co2-emissions-per-country.csv",
+              "url": "https://raw.githubusercontent.com/ByroDk2407/FIT3179_DataVis2/refs/heads/main/datasets/annual-co2-emissions-per-country.csv",
               "format": {"type": "csv"}
             },
             "key": "Entity",

@@ -1,4 +1,4 @@
-Entity,Code,Year,Temp Change,Upper bound of the annual temperature anomaly (95% confidence interval),Lower bound of the annual temperature anomaly (95% confidence interval)
+Entity,Code,Year,Temp Change,Upper bound ,Lower bound
 Global,,1850,-0.4177114,-0.2461663,-0.58925647
 Global,,1851,-0.2333498,-0.054831687,-0.41186792
 Global,,1852,-0.22939907,-0.04941572,-0.40938243

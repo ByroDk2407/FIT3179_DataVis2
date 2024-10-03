@@ -5,6 +5,6 @@ vegaEmbed("#Choropleth_Map", vg_1).then(function(result) {
     
 }).catch(console.error);
 
-vegaEmbed("#animated_line", vg_2).then(function(result) {
+vegaEmbed("#Line_Animated", vg_2).then(function(result) {
     
 }).catch(console.error);

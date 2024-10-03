@@ -1,46 +1,78 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Global CO₂ Emissions (1970-2022)",
   "description": "Global Map Showing CO₂ Emissions By Country",
+  "width": 800,
+  "height": 500,
   
+  "params": [
+        {
+          "name": "Year_Slider",
+          "value": 1970,
+          "bind": {
+            "input": "range",
+            "min": 1970,
+            "max": 2022,
+            "step": 1,
+            "name": "Year: "
+          }
+        }
+  ],
+  "projection": {
+      "type": "equalEarth"
+  },
 
 
   "layer": [
     {
       "data": {
-        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
-        "format": {
-          "type": "topojson",
-          "feature": "countries"
-        }
+          "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+          "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
       },
+      "transform": [{
+          "calculate": "'Data is not available in ' + datum.properties.NAME",
+          "as": "note"
+      },
+      {
+          "filter": "datum.properties.NAME != 'Antarctica'"
+      }],
       "mark": {
-        "type": "geoshape",
-        "stroke": "black",  
-        "strokeWidth": 0.5,
-        "fill": null 
-      }
+          "type": "geoshape",
+          "fill": "#ddd",
+          "stroke": "black",
+          "strokeWidth": 1
+      },
+      "encoding": { "tooltip": { "field": "note" } }
     },
-
-
-
     {
       "data": {
-        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
-        "format": {
-          "type": "topojson",
-          "feature": "countries"
-        }
+        "url": "https://raw.githubusercontent.com/ByroDk2407/FIT3179_DataVis2/refs/heads/main/datasets/annual-co2-emissions-per-country.csv"
       },
-      "transform": [
+      "transform": [    
         {
-          "lookup": "properties.name",
+          "lookup": "Entity",
+          "from": {
+            "data":{
+              "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+              "format": {
+                "type": "topojson",
+                "feature": "ne_110m_admin_0_countries"
+              }
+            },
+            "key": "properties.NAME"
+          },
+          "as": "geo"
+        },
+        {"filter":"datum.Year == Year_Slider"},
+        {
+          "lookup": "Entity",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/ByroDk2407/FIT3179_DataVis2/refs/heads/main/datasets/annual-co2-emissions-per-country.csv",
+              "url": "https://raw.githubusercontent.com/ByroDk2407/FIT3179_DataVis2/refs/heads/main/datasets/population-and-demography.csv",
               "format": {"type": "csv"}
             },
             "key": "Entity",
-            "fields": ["Year", "Annual CO₂ emissions"]
+            "fields": ["Population"]
           }
         },
         {
@@ -48,38 +80,34 @@
           "as": "CO₂_Amount"
         },
         {
-          "filter": {
-            "field": "Year",
-            "equal": "2022"
-          }
+          "calculate": "datum['Annual CO₂ emissions']/datum['Population']",
+          "as": "CO₂_Amount_Per_Capita"
         }
       ],
-      "mark": "geoshape",
+      "mark": {
+        "type": "geoshape", "stroke": "#000000", "strokeWidth": 0.5
+      },
       "encoding": {
+        "shape": {"field": "geo", "type": "geojson" },
         "color": {
-          "field": "CO₂_Amount",
+          "field": "CO₂_Amount_Per_Capita",
+          "title": "CO₂ Amount Per Capita (kg)",
           "type": "quantitative",
           "scale": {
-            "scheme": "browns"
+            "scheme": "browns",
+            "type": "log"
           },
-          "legend": {
-            "title": "Annual CO₂ Emissions",
-            "orient": "bottom"
-          }
-        },
+        "legend": {
+          "orient": "bottom",
+          "gridAlign":"all"
+        }
+      },
         "tooltip": [
-          {"field": "properties.name", "type": "nominal", "title": "Country"},
-          {"field": "CO₂_Amount", "type": "quantitative", "title": "CO₂ Emissions (kg)"}
+          { "field": "Entity", "type": "nominal", "title": "Country: " },
+          { "field": "CO₂_Amount_Per_Capita", "type": "quantitative", "title": "CO₂ Per Capita (kg): ","format": ".3"}
         ]
       }
     }
   ],
-
-
-
-  "projection": {
-    "type": "mercator"
-  },
-  "width": 600,
-  "height": 570
+  "config": {}
 }

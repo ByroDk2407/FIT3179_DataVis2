@@ -1,0 +1,47 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/ByroDk2407/FIT3179_DataVis2/refs/heads/main/datasets/natural-disasters.csv"
+  },
+  "width": 600,
+  "height": 400,
+  "transform": [
+    {
+      "filter": "datum['Country name'] != 'All natural disasters'"
+    },
+    {
+      "calculate": "datum['Number of deaths from drought']", 
+      "as": "Total Deaths"
+    }
+  ],
+  "mark": {
+    "type": "circle",
+    "opacity": 0.8,
+    "stroke": "black",
+    "strokeWidth": 1
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "temporal",
+      "axis": {"grid": false}
+    },
+    "y": {
+      "field": "Country name",
+      "type": "nominal",
+      "axis": {"title": ""}
+    },
+    "size": {
+      "field": "Total Deaths",
+      "type": "quantitative",
+      "title": "Annual Deaths",
+      "legend": {"clipHeight": 30},
+      "scale": {"rangeMax": 5000}
+    },
+    "color": {
+      "field": "Country name",
+      "type": "nominal",
+      "legend": null
+    }
+  }
+}

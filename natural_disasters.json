@@ -2,65 +2,37 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
   "height": 400,
-  "title":"Natural Disasters",
-  "data": {
-    "url": "https://raw.githubusercontent.com/ByroDk2407/FIT3179_DataVis2/refs/heads/main/datasets/natural-disasters.csv"
-  },
-  
-  "params":[
+  "title": "Natural Disasters",
+  "params": [
     {
-      "name": "center_to",
-      "value": "Australia",
+      "name": "Region_Select",
+      "value": "Asia",
       "bind": {
         "input": "select",
         "options": [
-            [145, -37.95],
-            [144.3, -38.1],
-            [144.9, -36.7],
-            [147.1, -38.1]
+          "World",
+          "Asia", 
+          "Europe", 
+          "South America",
+          "North America", 
+          "Oceania", 
+          "Africa"
         ],
-        "labels": ["Melbourne CBD", "Geelong", "Bendigo", "Sale"],
-        "name": "Map Centre: "
+        "name": "Region: "
       }
     }
   ],
 
+  "data": {
+    "url": "https://raw.githubusercontent.com/ByroDk2407/FIT3179_DataVis2/refs/heads/main/datasets/Melted_Natural_Disasters_Data.csv"
+  },
+
   "transform": [
     {
-      "calculate": "datum['Number of deaths from earthquakes']", 
-      "as": "Earthquakes"
-    },
-    {
-      "calculate": "datum['Number of deaths from drought']", 
-      "as": "Droughts"
-    },
-    {
-      "calculate": "datum['Number of deaths from disasters']", 
-      "as": "Disasters"
-    },
-    {
-      "calculate": "datum['Number of deaths from volcanic activity']", 
-      "as": "Volcanic Activity"
-    },
-    {
-      "calculate": "datum['Number of deaths from floods']", 
-      "as": "Floods"
-    },
-    {
-      "calculate": "datum['Number of deaths from storms']", 
-      "as": "Storms"
-    },
-    {
-      "calculate": "datum['Number of deaths from landslides']", 
-      "as": "Landslides"
-    },
-    {
-      "calculate": "datum['Number of deaths from wildfires']", 
-      "as": "Wildfires"
+      "filter": "datum['Country name'] == Region_Select"
     }
   ],
 
-  
   "mark": {
     "type": "circle",
     "opacity": 0.9,
@@ -71,24 +43,29 @@
     "x": {
       "field": "Year",
       "type": "temporal",
-      "axis": {"grid": false}
+      "axis": { "grid": false }
     },
     "y": {
-      "field": "Floods",
+      "field": "Type of Death",
       "type": "nominal",
-      "axis": {"title": "Type of Disaster"}
+      "axis": { "title": "Type of Disaster" }
     },
     "size": {
-      "field": "Floods",
+      "field": "Number of Deaths",
       "type": "quantitative",
       "title": "Annual Deaths",
-      "legend": {"clipHeight": 30},
-      "scale": {"rangeMax": 5000}
+      "legend": { "clipHeight": 30 },
+      "scale": { "rangeMax": 5000 }
     },
     "color": {
       "field": "Country name",
       "type": "nominal",
-      "legend": null
-    }
+      "title": "Country"
+    },
+    "tooltip": [
+      { "field": "Year", "type": "temporal", "title": "Year: ", "format": "%Y" },
+      { "field": "Country name", "type": "nominal", "title": "Country: " },
+      { "field": "Number of Deaths", "type": "quantitative", "title": "Death Count: " }
+    ]
   }
 }

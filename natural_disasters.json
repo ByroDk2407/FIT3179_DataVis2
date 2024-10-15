@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 600,
-  "height": 400,
-  "title": "Natural Disasters",
+  "width": 1200,
+  "height": 600,
+  "background": null,
   "params": [
     {
       "name": "Region_Select",
@@ -43,29 +43,52 @@
     "x": {
       "field": "Year",
       "type": "temporal",
-      "axis": { "grid": false }
+      "axis": {
+        "grid": false,
+        "offset": 0,
+        "titleFontSize": 20,
+        "labelFontSize": 16,
+        "titlePadding":25
+      }
     },
     "y": {
       "field": "Type of Disaster",
       "type": "nominal",
-      "axis": { "title": "Type of Disaster", "offset": 25 }
+      "axis": { 
+        "title": "Type of Disaster", 
+        "offset": 35,
+        "titleFontSize": 20,
+        "labelFontSize": 16,
+        "titlePadding":25
+      }
     },
     "size": {
       "field": "Value",
       "type": "quantitative",
       "title": "Annual Deaths",
-      "legend": { "clipHeight": 30 },
-      "scale": { "rangeMax": 5000 }
+      "legend": {
+        "clipHeight": 145, 
+        "titleFontSize":20, 
+        "labelFontSize":15,
+        "titlePadding":5
+      },
+      "scale": { "rangeMax": 15000 }
     },
     "color": {
       "field": "Type of Disaster",
       "type": "nominal",
       "legend":null
     },
+    
     "tooltip": [
       { "field": "Year", "type": "temporal", "title": "Year: ", "format": "%Y" },
       { "field": "Country name", "type": "nominal", "title": "Country: " },
       { "field": "Value", "type": "quantitative", "title": "Death Count: " }
     ]
+  },
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    }
   }
 }

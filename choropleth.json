@@ -1,9 +1,9 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Global CO₂ Emissions (1970-2022)",
   "description": "Global Map Showing CO₂ Emissions By Country",
-  "width": 800,
-  "height": 500,
+  "width": 1200,
+  "height": 600,
+  "background": null,
   "params": [
     {
       "name": "Year_Slider",
@@ -28,7 +28,7 @@
             "format": { "type": "topojson", "feature": "countries" }
         },
         "transform": [{
-            "calculate": "'Data is not available in ' + datum.properties.NAME",
+            "calculate": "'Data is not available for this country'",
             "as": "note"
         }],
         "mark": {
@@ -99,20 +99,21 @@
               "scheme": "browns",
               "type": "log"
             },
-          "legend": {
-            "orient": "bottom",
-            "gridAlign":"all"
-          }
-        },
+            "legend": {
+              "orient": "right",
+              "titleAlign":"center",
+              "gradientLength": 576,
+              "labelFontSize": 15,
+              "titleLimit":360,
+              "titleFontSize": 20
+            }
+          },
           "tooltip": [
-            { "field": "Entity", "type": "nominal", "title": "Country: " },
+            { "field": "Entity", "type": "nominal", "title": "Country: "},
             { "field": "CO₂_Amount_Per_Capita", "type": "quantitative", "title": "CO₂ Per Capita (kg): ","format": ".3"}
           ]
         }
       }
     ],
-    
-
-
   "config": {}
 }

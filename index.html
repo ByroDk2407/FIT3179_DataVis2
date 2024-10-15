@@ -1,26 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"> 
-        <meta http-equiv="X-UA-Compatible"content="IE=edge"> 
-        <meta name="viewport"content="width=device-width,initial-scale=1.0"> 
-        
-        <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script> 
-        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script> 
-        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script> 
-        <script src="vega_lite_vis.js"></script> 
-        <link rel="stylesheet" href="styles.css">
-
-        <title>FirstVega-Litegraph</title>
-    </head>
-
-    <body> 
-        <h1>Data Visualisation Homework Wk10: 33190222</h1> 
-        <div id="Choropleth_Map"> </div>
-        <div id="Line_Animated"> </div>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizing Our Planet's Future: The Impact of the Global Climate Crisis</title>
     
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-whJjquuTr8rqzy4v+/aPgnACaSd9tOeGn3zEh19flkUnzx5nDA5p2hlX6zHG0OFp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.18.2"></script>
+    <script src="vega_lite_vis.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
 
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f8fb;
+        }
+        h1, h2, g {
+            color: #131a21;
+            text-align: center;
+        }
+        .lead {
+            color: #131a21;
+        }
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 8px;
+        }
+        .section-header {
+            padding: 20px;
+            background-color: #296323b5;
+            color: white;
+            border-radius: 5px;
+            font-size: 30px;
+        }
+        .section-body {
+            padding: 20px;
+            background-color: #ffffff;
+            margin-bottom: 75px;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .section-body-2 {
+            padding: 20px;
+            background-color: #ffffff;
+            margin-bottom: 75px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        #Choropleth_Map {
+            height: 600px;
+            width: 1600px;
+            padding: 20px;
+            margin-bottom: 60px;
+        }
+        #Line_Animated {
+            height: 600px;
+            width: 900px;
+            padding: 20px;
+            margin-bottom: 100px;
+        }
+        #Natural_Disaster {
+            text-align: center;
+        }
+        .section-header:hover {
+            background-color: #c0392b;
+            transition: background-color 0.3s;
+        }
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .flex-item {
+            width: 45%;
+        }
+        .textbox {
+            font-size: 25;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container my-5">
+        <h1 style="font-size: 65px;" class="text-center mb-4">Visualising Our Planet's Future: The Impact of the Global Climate Crisis</h1>
+        
+        <p style="font-size: 30px; text-align: center; margin-bottom: 10px;" class="lead text-center section-body textbox">
+            Climate change is one of the most pressing issues facing our world today. 
+            Rising temperatures, increasing carbon emissions, and more frequent natural 
+            disasters are just some of the many symptoms of the warming planet. This page 
+            explores the global effects of climate change through visual data, providing 
+            a deeper understanding of how our planet is changing.
+        </p>
+
+        <div class="section-body">
+            <div class="section-header text-center">
+                <h2>Global CO2 Emissions (1970-2022)</h2>
+            </div>
+            <div class="flex-container">
+                <p style="font-size: 25px;" class="flex-item">
+                    This choropleth map presents a detailed visual representation of the rise in 
+                    CO2 emissions per capita across the globe from 1970 to 2022, offering a stark 
+                    depiction of how industrial activities, urbanization, and energy consumption have 
+                    evolved over time. It highlights the increasing contributions of industrialized
+                    nations and regions, particularly in the Global North, as their economies expanded,
+                    driven by the rapid growth of sectors such as manufacturing, transportation,
+                    and power generation. The map also underscores the growing emissions in developing
+                    economies, where industrialization has surged to meet the demands of a rising
+                    population and global trade. Additionally, it captures how policies, technological
+                    advancements, and the global shift towards renewable energy sources have influenced
+                    emission patterns in some regions, while others continue to struggle with high
+                    levels of carbon output.
+                </p>
+                <div id="Choropleth_Map" class="mb-4 flex-item"></div>
+            </div>
+        </div>
+
+        <div class="section-body">
+            <div class="section-header text-center">
+                <h2>Global Temperature Change (1850-2024)</h2>
+            </div>
+            <div class="flex-container">
+                <div id="Line_Animated" class="mb-4 flex-item"></div>
+                <p style="font-size: 25px;" class="flex-item">
+                    This animated line chart meticulously tracks temperature anomaly data across 
+                    different regions of the world, illustrating the alarming rise in global 
+                    temperatures over the decades, particularly in the late 20th and early 21st centuries. 
+                    The chart emphasizes not only the sharp increase in average global temperatures 
+                    but also regional variations in climate change, showing how some areas have 
+                    experienced more drastic shifts than others. By highlighting extreme weather patterns, 
+                    such as prolonged heatwaves, melting polar ice, and changing precipitation levels, 
+                    the chart provides a compelling narrative of how human-induced climate change has 
+                    accelerated in recent years. Furthermore, it connects these temperature anomalies 
+                    to broader environmental issues, including the loss of biodiversity, shifting 
+                    agricultural patterns, and increased frequency of climate-related disasters,
+                    providing a comprehensive view of the global warming crisis.
+                </p>
+            </div>
+        </div>
+
+        <div class="section-body-2">
+            <div class="section-header text-center">
+                <h2>Deaths from Natural Disasters (1900-2020)</h2>
+            </div>
+            <p style="font-size: 25px; text-align: left;">
+                The bubble plot vividly illustrates the devastating impact of natural disasters, 
+                including floods, earthquakes, droughts, hurricanes, and wildfires, on human life 
+                and infrastructure. Each bubble represents a distinct disaster event, with its 
+                size correlating directly with the number of deaths, thereby offering a clear 
+                visual representation of the magnitude of human casualties. The plot not only 
+                conveys the immediate human toll but also contextualizes the broader social, 
+                economic, and environmental consequences of these disasters. It underscores 
+                how vulnerable populations, particularly in low-income countries with limited 
+                disaster preparedness, have borne the brunt of these events. Additionally, 
+                the bubble plot hints at the role of climate change in exacerbating the 
+                frequency and severity of natural disasters, linking rising global temperatures 
+                to more extreme weather conditions and heightened risks for communities worldwide.
+            </p>
+            <div style="text-align: center" id="Natural_Disasters" class="mb-4"></div>
+        </div>
+
+        <div class="section-body">
+            <div class="section-header text-center">
+                <h2>Fossil Fuel Consumption (1965-2023)</h2>
+            </div>
+            <div class="flex-container">
+                <p class="flex-item" style="font-size: 25px;">
+                    This stacked bar graph provides a comprehensive overview of fossil fuel consumption 
+                    by continent, illustrating the historical and ongoing reliance on non-renewable 
+                    energy sources like coal, oil, and natural gas, which have been the primary drivers 
+                    of CO2 emissions and global warming. By breaking down the data by region, the graph 
+                    reveals stark differences in energy usage patterns, with industrialized continents 
+                    like North America and Europe demonstrating early and sustained reliance on fossil 
+                    fuels, while regions like Asia show a significant uptick in consumption in more 
+                    recent decades due to rapid industrialization and economic growth. The graph also 
+                    highlights the growing global energy demand, driven by expanding populations and 
+                    economies, as well as the challenges associated with transitioning to renewable 
+                    energy sources. It underscores the urgent need for international cooperation and 
+                    policy interventions to curb fossil fuel dependency, invest in cleaner energy 
+                    alternatives, and mitigate the worst impacts of climate change.
+                </p>
+                <div id="CO2_Bar" class="mb-4 flex-item"></div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybM1O1bKnjI7gNt1/Tsxi65WclDA6j6vjH7u7LJHNB6N9/8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-QX6rzm3OxBu2vtW8GgsrtRXXsAs7XorRBb3zMl6d46eZP5lGPwWxUSiFdkn/3hF8" crossorigin="anonymous"></script>
+    
+</body>
 </html>
-
-

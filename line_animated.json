@@ -1,8 +1,8 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Global Temperature Change (1850-2024)",
-    "width": 800,
-    "height": 400,
+    "width": 900,
+    "height": 600,
+    "background": null,
   
     "params": [
           {
@@ -15,6 +15,7 @@
               "step": 1,
               "name": "Year: "
             }
+            
           }
     ],
   
@@ -34,17 +35,34 @@
         "x": {
             "field": "Year",
             "type": "temporal",
-            "title": "Years"
+            "title": "Years",
+            "axis":{
+              "titleFontSize": 20,
+              "labelFontSize": 16
+            }
         },
         "y": {
             "field": "Temp Change",
             "type": "quantitative",
-            "title": "Global Temperature Change (°C)"
+            "title": "Global Temperature Change (°C)",
+            "axis":{
+              "titleFontSize": 20,
+              "labelFontSize": 16,
+              "titlePadding":30
+            }
         },
-          "color": {
+        "color": {
             "field": "Entity",
             "type": "nominal",
-            "title": "Region"
+            "title": "Region",
+            "scale": {"range": ["black", "steelblue", "orange"]},
+            "legend": {
+              "gradientLength": 587,
+              "labelFontSize": 16,
+              "labelLimit":360,
+              "titleLimit":360,
+              "titleFontSize": 20
+            }
         },
         "tooltip":[
             {"field": "Year", "type": "temporal", "title": "Year: ", "format": "%Y"},
